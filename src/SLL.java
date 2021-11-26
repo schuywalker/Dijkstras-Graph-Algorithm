@@ -11,29 +11,26 @@ public class SLL {
 
     public int key; //the SLL's identifier
     private Node head = null;
-    public String color;
-    public int pathWeight;//weight from Node represented by SLL to this neighbor node
+//    public String color;
     public int shortestPathSum;//current shortest time to get to this vertex from source node
-    public boolean pathHighlighted; //if true, this is the path to take to achieve shortestPath to this node
-
-
-
-
+    public SLL p_previousHopInShortestPath = null;
     private int LLsize = 0;
+    private boolean extraced = false;
 
     public SLL(int key){
         this.key = key;
         //head.setValue(key);//heads key is the array index of the LL
-        this.color = "white";
+//        this.color = "white";
         this.shortestPathSum = Integer.MAX_VALUE;
-        this.pathWeight = pathWeight;
-        this.shortestPathSum = Integer.MAX_VALUE;
+        this.p_previousHopInShortestPath = null;
+
     }
 
 
     public void insertNode(Node newNode){
         if (this.LLsize == 0) {
             head = newNode;
+
         }
         else { // head.getNext() != null
             newNode.setNext(head);
@@ -51,8 +48,13 @@ public class SLL {
     public int getLLsize(){
         return this.LLsize;
     }
-    public int getPathWeight(){
-        return this.pathWeight;
+//    public int getPathWeight(){
+//        return this.pathWeight;
+//    }
+    public void setExtractedToTrue(){
+        this.extraced = true;
+
+
     }
 
     public void printList(){
@@ -63,7 +65,7 @@ public class SLL {
         System.out.println("VERTEX: " + this.key);
         Node cursor = this.head;
         while (cursor != null) {
-            System.out.print("neighbor node value: "+ cursor.getValue() + ", path weight: " + cursor.pathWeight + "\n");
+            System.out.print("neighbor node value: "+ cursor.getSLL_Key() + ", path weight: " + cursor.pathWeight + "\n");
             cursor = cursor.getNext();
         }
         System.out.println();

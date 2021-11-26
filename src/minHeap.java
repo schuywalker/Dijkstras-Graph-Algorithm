@@ -3,9 +3,13 @@ public class minHeap {
     public SLL[] A;
     public int heap_size;
 
-    public minHeap(SLL[] A) {
+    public minHeap(SLL[] adjList) {
         this.A = A;
-        this.heap_size = A.length-1;
+        A = new SLL[adjList.length+1];
+        for (int i = 1; i < A.length; i++){
+            A[i] = adjList[i-1];
+        }
+        this.heap_size = A.length - 1; // 0 doesnt count: 1-based indexing on heap
     }
     public void heapsort(){
         Build_Min_Heap();
@@ -15,6 +19,16 @@ public class minHeap {
             Min_Heapify(1);
         }
     }
+    public SLL Extract_Min(){
+        if (heap_size < 1) {
+            System.out.println("Error: cannot call extract min when heap size is 0");
+        }
+        SLL smallest = A[1];
+        swap(1,heap_size); // swap lowest right-most non-leaf node
+        heap_size--;
+        Min_Heapify(1);
+        return smallest;
+    }
     public void Build_Min_Heap(){
         heap_size = A.length-1;
         for(int i = (int)Math.floor((A.length-1)/2); i > 0; i--){
@@ -23,6 +37,8 @@ public class minHeap {
         }
     }
     public void Min_Heapify(int i){
+
+
         if (i == 0) {return;} // we use 1 based indexing for heap, so index 0 is not used
 
         else if (i >= A.length) throw new IllegalArgumentException("i cannot be greater than array size");
@@ -48,22 +64,22 @@ public class minHeap {
 
         if (smallestPathSumVertex != A[i]) {
             // repair the damaged heap
-            Min_Heapify(i);
+            Min_Heapify(smallestPathSumVertex.key);
         }
 
     }
 
-    private SLL getRightChild(int i) {
-        int ret = i*2;
-        if (ret > this.heap_size) {
+    public SLL getRightChild(int i) {
+        int ret = (i*2)+1;
+        if (ret > A.length-1) {
             return null;//original heap code said: return -1// heap_size is array index -1, adjusts for A index 0
         }
         else return A[ret];
     }
 
-    private SLL getLeftChild(int i) {
-        int ret = (i * 2) + 1;
-        if (ret > this.heap_size) {
+    public SLL getLeftChild(int i) {
+        int ret = (i * 2);
+        if (ret > A.length-1) {
             return null;
         } else {
             return A[ret];
@@ -86,6 +102,28 @@ public class minHeap {
         }
         else return false;
     }
+
+public void printHeap(){
+    for (int i = 1; i < A.length; i++) {
+
+        System.out.println("heap position: "+i + ", vertex key: " + A[i].key);
+        SLL leftChild = getLeftChild(i);
+        SLL rightChild = getRightChild(i);
+        if (leftChild != null) {
+            System.out.println("  heap right child: at " + i * 2 + ": " + leftChild.key + " with pathSum: "+leftChild.shortestPathSum);
+        } else {
+            System.out.print("  left child null");
+        }
+        if (rightChild != null) {
+            System.out.println("  heap left child: " + (i * 2 + 1) + ": " + rightChild.key + " with pathSum: "+rightChild.shortestPathSum);
+        } else {
+            System.out.print("  right child null\n");
+        }
+        System.out.println();
+
+    }
+}
+
 
 
 

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /*
 Author: Schuyler Asplin
 Topographical Sort of an Adjacency List representation of a graph
@@ -8,14 +10,22 @@ Graph function with DFS and TopoSort
 public class Graph {
 
     public SLL[] adjList;    // adjacency list representation of our graph
+    public ArrayList<SLL> set = new ArrayList<SLL>();
+
 
     public Graph (int size) {
         this.adjList = new SLL[size];
+        //this.adjList[0].shortestPathSum = 0;
 
     }
 
     public void insert(int key, SLL sll){
             this.adjList[key] = sll;
+    }
+
+    public void SetUnion(SLL sll){
+        sll.setExtractedToTrue();
+        set.add(sll);
     }
 
 

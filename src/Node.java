@@ -9,35 +9,35 @@ The latter is only used for final result output.
 
 public class Node {
 
-    private int value; // value == SLL's key
+    private int SLL_Key; // value == SLL's key
     public Node next;
     public int pathWeight;
     //public String color;
-
+    public boolean pathHighlighted; //if true, this is the path to take to achieve shortestPath to this node
 
 
 
     public Node() {}
 
-    public Node(int value){
-        this.value = value;
+    public Node(int SLL_Key){
+        this.SLL_Key = SLL_Key;
         //this.color = "white";
-
+        pathHighlighted = false;
 
     }
 
-    public Node(int value, int pathWeight){
-        this.value = value;
+    public Node(int SLL_Key, int pathWeight){
+        this.SLL_Key = SLL_Key;
         this.pathWeight = pathWeight;
     }
 
 
 
-    public int getValue(){
-        return this.value;
+    public int getSLL_Key(){
+        return this.SLL_Key;
     }
-    public void setValue(int value){
-        this.value = value;
+    public void setSLL_Key(int SLL_Key){
+        this.SLL_Key = SLL_Key;
     }
 
     public Node getNext(){
