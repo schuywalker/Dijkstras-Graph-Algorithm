@@ -58,6 +58,7 @@ public class Dijkstra {
                         sll.insertNode(nextHopNeighbor);
                     }
                 }
+
                 sll.printList();
             }
             sc.close();

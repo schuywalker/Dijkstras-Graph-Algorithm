@@ -20,6 +20,7 @@ public class minHeap {
         }
         heap_size = initialHeap_size;
     }
+
     public SLL Extract_Min(){
         if (heap_size < 1) {
             System.out.println("Error: cannot call extract min when heap size is 0");

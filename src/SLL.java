@@ -27,6 +27,7 @@ public class SLL {
     }
 
 
+
     public void insertNode(Node newNode){
         if (this.LLsize == 0) {
             head = newNode;
