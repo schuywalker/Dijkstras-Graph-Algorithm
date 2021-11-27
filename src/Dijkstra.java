@@ -68,10 +68,20 @@ public class Dijkstra {
         minHeap heap = new minHeap(graph.adjList);
 //        heap.printHeap();
 
-        printListAndHeap(graph, heap);
+        //printListAndHeap(graph, heap);
 
         Dijkstra(graph, heap, graph.adjList[0]);
-
+//        System.out.println("\nFIRST PRINTING\n");
+//        heap.printHeap(graph);
+//        heap.A[1].shortestPathSum = 0;
+//        heap.heapsort();
+//        System.out.println("\n1 path to 0, heapsorted\n");
+//        heap.printHeap(graph);
+//        heap.A[4].shortestPathSum = 4;
+//        heap.printHeap(graph);
+//        heap.heapsort();
+//        System.out.println("\n4 path to 0, heapsorted\n");
+//        heap.printHeap(graph);
 
     }
 
@@ -85,14 +95,14 @@ public class Dijkstra {
         }
         //heap.heapsort();// why not working for above?
 
-
-
-        heap.printHeap();
+        heap.printHeap(graph);
 
         while (heap.heap_size != 0){
-            SLL u = heap.Extract_Min();
+            SLL heap_u = heap.Extract_Min();
+            SLL u = graph.adjList[heap_u.key];
             graph.SetUnion(u);
-            Node v_cursor = u.getHead();
+//            Node v_cursor = u.getHead();
+            Node v_cursor = graph.adjList[u.key].getHead();
             while (v_cursor != null){
 
                 // relax edge
@@ -100,30 +110,32 @@ public class Dijkstra {
                 int nextHopNeighborPathSum = graph.adjList[v_cursor.getSLL_Key()].shortestPathSum;
                 int extractedVertexU_PathSum = u.shortestPathSum;
                 int weightFromUtoV = v_cursor.pathWeight;
+                int relaxed_edge = extractedVertexU_PathSum + weightFromUtoV;
+
                 if (nextHopNeighborPathSum > extractedVertexU_PathSum + weightFromUtoV) {
                     //relax edge
-                    int relaxed_edge = extractedVertexU_PathSum + weightFromUtoV;
+
                     graph.adjList[v_cursor.getSLL_Key()].shortestPathSum = relaxed_edge;
-                    heap.A[v_cursor.getSLL_Key()+1].shortestPathSum = relaxed_edge;
+                    //heap_u.shortestPathSum = relaxed_edge;
 
                     //repair minheap
-                    //heap.Min_Heapify(v_cursor.getSLL_Key()+1);//heap uses 0 based index
+
                     heap.heapsort();
 
                     // set vertex with highlighted edge pointing to v to be u
-                    graph.adjList[v_cursor.getSLL_Key()].p_previousHopInShortestPath = u;//use u from heap or u from adjList?
-                    heap.A[v_cursor.getSLL_Key()+1].p_previousHopInShortestPath = u;
+                    graph.adjList[v_cursor.getSLL_Key()].p_previousHopInShortestPath = u;
+                    //heap.A[v_cursor.getSLL_Key()+1].p_previousHopInShortestPath = u;
                     System.out.println("ran successfully on "+v_cursor.getSLL_Key());
                 }
                 v_cursor = v_cursor.getNext();
             }
         }
-        printDjikstra(graph,heap,source);
+        printDijkstra(graph,heap,source);
 
         System.out.println("Success.");
     }
 
-    public static void printDjikstra(Graph graph, minHeap heap, SLL source){
+    public static void printDijkstra(Graph graph, minHeap heap, SLL source){
         for (int i = 0; i < graph.adjList.length; i++){
 
             if (graph.adjList[i] == source) {

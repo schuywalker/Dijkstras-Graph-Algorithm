@@ -13,7 +13,7 @@ public class minHeap {
     public void heapsort(){
         int initialHeap_size = heap_size;
         Build_Min_Heap();
-        for(int i = A.length-1; i > 1; i--){
+        for(int i = initialHeap_size; i > 1; i--){
             swap(1, i);
             heap_size--;
             Min_Heapify(1);
@@ -31,8 +31,9 @@ public class minHeap {
         return smallest;
     }
     public void Build_Min_Heap(){
-        heap_size = A.length-1;
-        for(int i = (int)Math.floor((A.length-1)/2); i > 0; i--){
+        //heap_size = A.length-1;
+//        for(int i = (int)Math.floor((A.length-1)/2); i > 0; i--){
+        for(int i = heap_size/2; i > 0; i--){
             Min_Heapify(i); //goes from lowest, rightmost NON-LEAF node, all the way up to root
             //we start from non-leaf nodes because min_heapify requires that both children be min heaps
         }
@@ -72,7 +73,7 @@ public class minHeap {
 
     public SLL getRightChild(int i) {
         int ret = (i*2)+1;
-        if (ret > A.length-1) {
+        if (ret > heap_size) {
             return null;//original heap code said: return -1// heap_size is array index -1, adjusts for A index 0
         }
         else return A[ret];
@@ -80,7 +81,7 @@ public class minHeap {
 
     public SLL getLeftChild(int i) {
         int ret = (i * 2);
-        if (ret > A.length-1) {
+        if (ret > heap_size) {
             return null;
         } else {
             return A[ret];
@@ -98,29 +99,25 @@ public class minHeap {
     }
 
     public boolean isLeafNode(int i){
-        if (i > (this.heap_size)/2){
+        if (i > (this.heap_size)/2){// -1 adjusts for A index 0
             return true;
         }
         else return false;
     }
 
-public void printHeap(){
+public void printHeap(Graph graph){
+    System.out.println("heap size = "+heap_size);
     for (int i = 1; i < A.length; i++) {
 
         System.out.println("heap position: "+i + ", vertex key: " + A[i].key);
-        SLL leftChild = getLeftChild(i);
-        SLL rightChild = getRightChild(i);
-        if (leftChild != null) {
-            System.out.println("  heap right child: at " + i * 2 + ": " + leftChild.key + " with pathSum: "+leftChild.shortestPathSum);
-        } else {
-            System.out.print("  left child null");
-        }
-        if (rightChild != null) {
-            System.out.println("  heap left child: " + (i * 2 + 1) + ": " + rightChild.key + " with pathSum: "+rightChild.shortestPathSum);
-        } else {
-            System.out.print("  right child null\n");
+
+        Node cursor = graph.adjList[A[i].key].getHead();
+        while (cursor != null){
+            System.out.println("points to heap position "+(cursor.getSLL_Key()+1)+" in adjList with weight of "+cursor.pathWeight);
+            cursor = cursor.getNext();
         }
         System.out.println();
+
 
     }
 }
