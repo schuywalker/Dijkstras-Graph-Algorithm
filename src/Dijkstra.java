@@ -70,20 +70,33 @@ public class Dijkstra {
 
         printListAndHeap(graph, heap);
 
-        Dijkstra(graph, heap);
+        Dijkstra(graph, heap, graph.adjList[0]);
 
 
     }
 
-    public static void Dijkstra(Graph graph, minHeap heap){
-        graph.adjList[0].shortestPathSum = 0;//path from vertex 0 to itself is 0
+    public static void Dijkstra(Graph graph, minHeap heap, SLL source){
+        source.shortestPathSum = 0;//path from vertex 0 to itself is 0
+        heap.A[source.key+1].shortestPathSum = 0;
+
+        if (heap.A[1] != source) { // every other shortestPathSum will be infinitly large,
+            // so we can just swap to put source on top and we will have a min heap
+            heap.swap(1, source.key+1);
+        }
+        //heap.heapsort();// why not working for above?
+
+
+
+        heap.printHeap();
 
         while (heap.heap_size != 0){
             SLL u = heap.Extract_Min();
             graph.SetUnion(u);
             Node v_cursor = u.getHead();
             while (v_cursor != null){
+
                 // relax edge
+//                int nextHopNeighborPathSum = graph.adjList[v_cursor.getSLL_Key()].shortestPathSum;
                 int nextHopNeighborPathSum = graph.adjList[v_cursor.getSLL_Key()].shortestPathSum;
                 int extractedVertexU_PathSum = u.shortestPathSum;
                 int weightFromUtoV = v_cursor.pathWeight;
@@ -94,7 +107,8 @@ public class Dijkstra {
                     heap.A[v_cursor.getSLL_Key()+1].shortestPathSum = relaxed_edge;
 
                     //repair minheap
-                    heap.Min_Heapify(v_cursor.getSLL_Key()+1);//heap uses 0 based index
+                    //heap.Min_Heapify(v_cursor.getSLL_Key()+1);//heap uses 0 based index
+                    heap.heapsort();
 
                     // set vertex with highlighted edge pointing to v to be u
                     graph.adjList[v_cursor.getSLL_Key()].p_previousHopInShortestPath = u;//use u from heap or u from adjList?
@@ -104,8 +118,25 @@ public class Dijkstra {
                 v_cursor = v_cursor.getNext();
             }
         }
+        printDjikstra(graph,heap,source);
 
         System.out.println("Success.");
+    }
+
+    public static void printDjikstra(Graph graph, minHeap heap, SLL source){
+        for (int i = 0; i < graph.adjList.length; i++){
+
+            if (graph.adjList[i] == source) {
+                //do nothing
+            }
+            else if (graph.adjList[i].p_previousHopInShortestPath == null) {
+                System.out.print("["+i+"]"+"unreachable");
+            }
+            else {
+                System.out.print("["+i+"]"+"shortest path:"+ graph.getShortestPath(i,source) + " shortestDistance:"+graph.adjList[i].shortestPathSum + "\n");
+            }
+            //System.out.println("\n");
+        }
     }
 
     public static void printListAndHeap(Graph graph, minHeap heap) {

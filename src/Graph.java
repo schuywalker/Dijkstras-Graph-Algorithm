@@ -28,6 +28,26 @@ public class Graph {
         set.add(sll);
     }
 
+    public String getShortestPath(int i,SLL source) {
+
+        if (adjList[i].p_previousHopInShortestPath == null) {
+            return "error, shortest path should not be called on node with node highlighted edges pointing to it";
+        }
+        //ArrayList<SLL> hopsReverseOrder = new ArrayList<SLL>();
+        SLL cursor = adjList[i].p_previousHopInShortestPath;
+        String hops = Integer.toString(cursor.key);
+        while(cursor != source) {
+            if (cursor.p_previousHopInShortestPath == cursor) {
+                System.out.println("everything getting messed up at " + cursor.key);
+                break;
+            }
+            cursor = cursor.p_previousHopInShortestPath;
+            hops = cursor.key + "," + hops;
+        }
+        hops = "("+hops+")";
+        return hops;
+
+    }
 
 
     public void printGraph(){
@@ -44,8 +64,6 @@ public class Graph {
     }
 
 
-
-    
 
 }
 

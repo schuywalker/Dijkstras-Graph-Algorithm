@@ -4,7 +4,6 @@ public class minHeap {
     public int heap_size;
 
     public minHeap(SLL[] adjList) {
-        this.A = A;
         A = new SLL[adjList.length+1];
         for (int i = 1; i < A.length; i++){
             A[i] = adjList[i-1];
@@ -12,12 +11,14 @@ public class minHeap {
         this.heap_size = A.length - 1; // 0 doesnt count: 1-based indexing on heap
     }
     public void heapsort(){
+        int initialHeap_size = heap_size;
         Build_Min_Heap();
         for(int i = A.length-1; i > 1; i--){
             swap(1, i);
             heap_size--;
             Min_Heapify(1);
         }
+        heap_size = initialHeap_size;
     }
     public SLL Extract_Min(){
         if (heap_size < 1) {
