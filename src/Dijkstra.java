@@ -71,31 +71,31 @@ public class Dijkstra {
 
         //printListAndHeap(graph, heap);
 
-        heap.A[1].shortestPathSum = 100;
-        heap.A[2].shortestPathSum = 250;
-        heap.A[3].shortestPathSum = 200;
-        heap.A[4].shortestPathSum = 300;
-        heap.A[5].shortestPathSum = 400;
+//        heap.A[1].shortestPathSum = 100;
+//        heap.A[2].shortestPathSum = 250;
+//        heap.A[3].shortestPathSum = 200;
+//        heap.A[4].shortestPathSum = 300;
+//        heap.A[5].shortestPathSum = 400;
         heap.printHeap(graph);
         heap.Build_Min_Heap();
 
-        SLL heapu = heap.Extract_Min();
-        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-        heapu.printList();
-
-        heapu = heap.Extract_Min();
-        //heap.heapsort();
-        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-        heapu.printList();
-        heapu = heap.Extract_Min();
-        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-        heapu.printList();
-        heapu = heap.Extract_Min();
-        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-        heapu.printList();
-        heapu = heap.Extract_Min();
-        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-        heapu.printList();
+//        SLL heapu = heap.Extract_Min();
+//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+//        heapu.printList();
+//
+//        heapu = heap.Extract_Min();
+//        //heap.heapsort();
+//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+//        heapu.printList();
+//        heapu = heap.Extract_Min();
+//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+//        heapu.printList();
+//        heapu = heap.Extract_Min();
+//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+//        heapu.printList();
+//        heapu = heap.Extract_Min();
+//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+//        heapu.printList();
 
 
 
@@ -156,10 +156,10 @@ public class Dijkstra {
 
                     //repair minheap
 
-                    heap.heapsort();
+                    //heap.heapsort();
 
                     // set vertex with highlighted edge pointing to v to be u
-                    graph.adjList[v_cursor.getSLL_Key()].p_previousHopInShortestPath = u;
+                    graph.adjList[v_cursor.getSLL_Key()].p_previousHopInShortestPath = graph.adjList[u.key];
                     //heap.A[v_cursor.getSLL_Key()+1].p_previousHopInShortestPath = u;
                     System.out.println("ran successfully on "+v_cursor.getSLL_Key());
                 }
