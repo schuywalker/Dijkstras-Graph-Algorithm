@@ -13,28 +13,30 @@ public class minHeap {
     public void heapsort(){
         int initialHeap_size = heap_size;
         Build_Min_Heap();
-        for(int i = heap_size; i > 1; i--){
+        for(int i = initialHeap_size; i >= 2; i--){
             swap(1, i);
             heap_size--;
             Min_Heapify(1);
         }
-        heap_size = initialHeap_size;
+        heap_size = initialHeap_size;//SLIDE DIFFERENCE
     }
+
     public SLL Extract_Min(){
         if (heap_size < 1) {
             System.out.println("Error: cannot call extract min when heap size is 0");
         }
         SLL smallest = A[1];
-        swap(1,heap_size); // swap lowest right-most non-leaf node
+//        A[1] = A[heap_size];//SLIDE DIFFERENCE
+        swap(1,heap_size);
         heap_size--;
         Min_Heapify(1);
         return smallest;
     }
     public void Build_Min_Heap(){
         //heap_size = A.length-1;
-        for(int i = (int)Math.floor((A.length-1)/2); i > 0; i--){
-            Min_Heapify(i); //goes from lowest, rightmost NON-LEAF node, all the way up to root
-            //we start from non-leaf nodes because min_heapify requires that both children be min heaps
+        //for(int i = (int)Math.floor((A.length-1)/2); i >= 2; i--){
+        for(int i = heap_size; i > 0; i--){ // SLIDE DIFFERENCE trying heapsize because it will be run multiple times
+            Min_Heapify(i);
         }
     }
     public void Min_Heapify(int i){
@@ -65,6 +67,7 @@ public class minHeap {
 
         if (smallestPathSumVertex != A[i]) {
             // repair the damaged heap
+            swap(smallestPathSumVertex.key+1,A[i].key+1);//keys are graph locations. must be +1 for heap locations
             Min_Heapify(smallestPathSumVertex.key);
         }
 
@@ -106,11 +109,13 @@ public class minHeap {
 
 public void printHeap(Graph graph){
     System.out.println("heap size = "+heap_size);
-    for (int i = 1; i < A.length; i++) {
+    for (int i = 1; i <= A.length-1; i++) {
+        if (i > heap_size){
+            System.out.println("OUTSIDE HEAP");
+        }
+        System.out.println("heap position: "+i + ", SLL path sum: " + A[i].shortestPathSum);
 
-        System.out.println("heap position: "+i + ", vertex key: " + A[i].key);
-
-        Node cursor = graph.adjList[A[i].key].getHead();
+        Node cursor = A[i].getHead();
         while (cursor != null){
             System.out.println("points to heap position "+(cursor.getSLL_Key()+1)+" in adjList with weight of "+cursor.pathWeight);
             cursor = cursor.getNext();

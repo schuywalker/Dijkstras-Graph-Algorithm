@@ -71,16 +71,42 @@ public class Dijkstra {
 
         //printListAndHeap(graph, heap);
 
-        heap.A[2].shortestPathSum = 99;
-        SLL heapu = heap.Extract_Min();
-        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-        heapu.printList();
-
-        heap.heapsort();
-        System.out.println("HEAP AFTER SORTING");
+//        heap.A[1].shortestPathSum = 100;
+//        heap.A[2].shortestPathSum = 250;
+//        heap.A[3].shortestPathSum = 200;
+//        heap.A[4].shortestPathSum = 300;
+//        heap.A[5].shortestPathSum = 400;
         heap.printHeap(graph);
+        heap.Build_Min_Heap();
 
-        //Dijkstra(graph, heap, graph.adjList[0]);
+//        SLL heapu = heap.Extract_Min();
+//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+//        heapu.printList();
+//
+//        heapu = heap.Extract_Min();
+//        heap.heapsort();
+//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+//        heapu.printList();
+//        heapu = heap.Extract_Min();
+//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+//        heapu.printList();
+//        heapu = heap.Extract_Min();
+//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+//        heapu.printList();
+//        heapu = heap.Extract_Min();
+//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+//        heapu.printList();
+
+
+
+//        heap.heapsort();
+//        System.out.println("HEAP AFTER SORTING");
+//        heap.printHeap(graph);
+
+
+
+
+        Dijkstra(graph, heap, graph.adjList[0]);
 //        System.out.println("\nFIRST PRINTING\n");
 //        heap.printHeap(graph);
 //        heap.A[1].shortestPathSum = 0;

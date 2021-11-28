@@ -63,7 +63,7 @@ public class SLL {
             System.out.println("error: print list on null list");
             return;
         }
-        System.out.println("VERTEX: " + this.key);
+        System.out.println("VERTEX: " + this.key + " with list path sum of "+this.shortestPathSum);
         Node cursor = this.head;
         while (cursor != null) {
             System.out.print("neighbor node value: "+ cursor.getSLL_Key() + ", path weight: " + cursor.pathWeight + "\n");
