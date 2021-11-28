@@ -44,7 +44,7 @@ public class Graph {
             cursor = cursor.p_previousHopInShortestPath;
             hops = cursor.key + "," + hops;
         }
-        hops = "("+hops+")";
+        hops = "(" + hops + "," + adjList[i].key + ")";
         return hops;
 
     }
