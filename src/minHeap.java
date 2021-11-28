@@ -13,14 +13,13 @@ public class minHeap {
     public void heapsort(){
         int initialHeap_size = heap_size;
         Build_Min_Heap();
-        for(int i = initialHeap_size; i > 1; i--){
+        for(int i = heap_size; i > 1; i--){
             swap(1, i);
             heap_size--;
             Min_Heapify(1);
         }
         heap_size = initialHeap_size;
     }
-
     public SLL Extract_Min(){
         if (heap_size < 1) {
             System.out.println("Error: cannot call extract min when heap size is 0");
@@ -33,8 +32,7 @@ public class minHeap {
     }
     public void Build_Min_Heap(){
         //heap_size = A.length-1;
-//        for(int i = (int)Math.floor((A.length-1)/2); i > 0; i--){
-        for(int i = heap_size/2; i > 0; i--){
+        for(int i = (int)Math.floor((A.length-1)/2); i > 0; i--){
             Min_Heapify(i); //goes from lowest, rightmost NON-LEAF node, all the way up to root
             //we start from non-leaf nodes because min_heapify requires that both children be min heaps
         }

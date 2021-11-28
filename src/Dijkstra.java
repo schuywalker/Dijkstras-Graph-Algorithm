@@ -71,7 +71,16 @@ public class Dijkstra {
 
         //printListAndHeap(graph, heap);
 
-        Dijkstra(graph, heap, graph.adjList[0]);
+        heap.A[2].shortestPathSum = 99;
+        SLL heapu = heap.Extract_Min();
+        System.out.println("EXTRACTED VERTEX LIST PRINTING");
+        heapu.printList();
+
+        heap.heapsort();
+        System.out.println("HEAP AFTER SORTING");
+        heap.printHeap(graph);
+
+        //Dijkstra(graph, heap, graph.adjList[0]);
 //        System.out.println("\nFIRST PRINTING\n");
 //        heap.printHeap(graph);
 //        heap.A[1].shortestPathSum = 0;
