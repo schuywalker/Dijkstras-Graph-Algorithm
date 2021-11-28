@@ -1,9 +1,9 @@
 /*
 Author: Schuyler Asplin
-Dijkstra's Algorithm
-CSCD320 Algorithms Prog Professor Xu
+Dijkstra's Algorithm: finding shortest paths from source vertex to all other vertices
+CSCD320 Algorithms Prog5 Professor Xu
 
-main class
+main class, including Djikstra function and printDjikstra function.
  */
 
 
@@ -21,8 +21,8 @@ public class Dijkstra {
         try { // this try clause gets the number of lines
             Scanner sc = new Scanner(file);
         /*
-        Currently, key is the array index at which linked lists are added to the adjacency list.
-        If keys are inserted into occupied indexes, room is made by moving
+        key is the array index at which linked lists are added to the adjacency list.
+        Heap uses 1 based indexing so heap functions have all been modified to use key+1 when necessary.
          */
             int numOfLines = 0;
             while (sc.hasNextLine()) {
@@ -59,7 +59,7 @@ public class Dijkstra {
                     }
                 }
 
-                sll.printList();
+                //sll.printList();
             }
             sc.close();
         } catch (Exception e) {
@@ -67,57 +67,13 @@ public class Dijkstra {
         }
 
         minHeap heap = new minHeap(graph.adjList);
-//        heap.printHeap();
 
-        //printListAndHeap(graph, heap);
-
-//        heap.A[1].shortestPathSum = 100;
-//        heap.A[2].shortestPathSum = 250;
-//        heap.A[3].shortestPathSum = 200;
-//        heap.A[4].shortestPathSum = 300;
-//        heap.A[5].shortestPathSum = 400;
-        heap.printHeap(graph);
         heap.Build_Min_Heap();
 
-//        SLL heapu = heap.Extract_Min();
-//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-//        heapu.printList();
-//
-//        heapu = heap.Extract_Min();
-//        //heap.heapsort();
-//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-//        heapu.printList();
-//        heapu = heap.Extract_Min();
-//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-//        heapu.printList();
-//        heapu = heap.Extract_Min();
-//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-//        heapu.printList();
-//        heapu = heap.Extract_Min();
-//        System.out.println("EXTRACTED VERTEX LIST PRINTING");
-//        heapu.printList();
+        int SourceNodeKey = Integer.valueOf(args[1]);
 
+        Dijkstra(graph, heap, graph.adjList[SourceNodeKey]);
 
-
-//        heap.heapsort();
-//        System.out.println("HEAP AFTER SORTING");
-//        heap.printHeap(graph);
-
-
-
-
-        Dijkstra(graph, heap, graph.adjList[3]);
-//        System.out.println("\nFIRST PRINTING\n");
-//        heap.printHeap(graph);
-//        heap.A[1].shortestPathSum = 0;
-//        heap.heapsort();
-//        System.out.println("\n1 path to 0, heapsorted\n");
-//        heap.printHeap(graph);
-//        heap.A[4].shortestPathSum = 4;
-//        heap.printHeap(graph);
-//        heap.heapsort();
-//        System.out.println("\n4 path to 0, heapsorted\n");
-//        heap.printHeap(graph);
 
     }
 
@@ -129,14 +85,14 @@ public class Dijkstra {
             // so we can just swap to put source on top and we will have a min heap
             heap.swap(1, source.key+1);
         }
-        //heap.heapsort();// why not working for above?
 
-        heap.printHeap(graph);
+
+//        heap.printHeap(graph);
 
         while (heap.heap_size != 0){
             SLL heap_u = heap.Extract_Min();
             SLL u = graph.adjList[heap_u.key];
-            graph.SetUnion(u);
+            //graph.SetUnion(u);
 //            Node v_cursor = u.getHead();
             Node v_cursor = graph.adjList[u.key].getHead();
             while (v_cursor != null){
@@ -157,11 +113,9 @@ public class Dijkstra {
                     //relax edge
 
                     graph.adjList[v_cursor.getSLL_Key()].shortestPathSum = relaxed_edge;
-                    //heap_u.shortestPathSum = relaxed_edge;
 
                     //repair minheap
                     heap.Build_Min_Heap();
-                    //heap.heapsort();
 
                     // set vertex with highlighted edge pointing to v to be u
                     graph.adjList[v_cursor.getSLL_Key()].p_previousHopInShortestPath = graph.adjList[u.key];

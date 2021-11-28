@@ -1,9 +1,12 @@
 /*
 Author: Schuyler Asplin
-Topographical Sort of an Adjacency List representation of a graph
-CSCD320 Algorithms Prog4 Professor Xu
+Dijkstra's Algorithm: finding shortest paths from source vertex to all other vertices
+CSCD320 Algorithms Prog5 Professor Xu
 
 Singly Linked List class, representing a vertex. nodes represent edges
+The SLL's shortestPathSum is the sum of the weights of the edges needed to reach this vertex, in the
+shortest possible path.
+The set and extracted value were not necessary in this algorithm but I left them in for future applications.
  */
 
 public class SLL {
@@ -13,7 +16,7 @@ public class SLL {
     private Node head = null;
 //    public String color;
     public int shortestPathSum;//current shortest time to get to this vertex from source node
-    public SLL p_previousHopInShortestPath = null;
+    public SLL p_previousHopInShortestPath;
     private int LLsize = 0;
     private boolean extraced = false;
 
@@ -49,9 +52,7 @@ public class SLL {
     public int getLLsize(){
         return this.LLsize;
     }
-//    public int getPathWeight(){
-//        return this.pathWeight;
-//    }
+
     public void setExtractedToTrue(){
         this.extraced = true;
 

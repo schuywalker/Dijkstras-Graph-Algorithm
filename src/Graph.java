@@ -1,12 +1,14 @@
-import java.util.ArrayList;
-
 /*
 Author: Schuyler Asplin
-Topographical Sort of an Adjacency List representation of a graph
-CSCD320 Algorithms Prog4 Professor Xu
+Dijkstra's Algorithm: finding shortest paths from source vertex to all other vertices
+CSCD320 Algorithms Prog5 Professor Xu
 
-Graph function with DFS and TopoSort
+Graph class with an adjacency list representation of the graph.
+The set and union were not utilized in performing Djikstra's algorithm but I've left them in for future applications.
  */
+import java.util.ArrayList;
+
+
 public class Graph {
 
     public SLL[] adjList;    // adjacency list representation of our graph
@@ -15,8 +17,6 @@ public class Graph {
 
     public Graph (int size) {
         this.adjList = new SLL[size];
-        //this.adjList[0].shortestPathSum = 0;
-
     }
 
     public void insert(int key, SLL sll){

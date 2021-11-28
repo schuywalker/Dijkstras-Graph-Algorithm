@@ -1,3 +1,16 @@
+/*
+Author: Schuyler Asplin
+Dijkstra's Algorithm: finding shortest paths from source vertex to all other vertices
+CSCD320 Algorithms Prog5 Professor Xu
+
+Minimum Heap class used as a priority queue to retrieve the vertex with the lowest path when performing Dijkstra's algo.
+This heap uses 1 based indexing, so functions utilizing the SLL keys all had to be incremented by 1 in the heap
+functions.
+
+Heapsort still does not work properly, but it was not necessary for Djikstra's.
+Extract_Min and Build_Min_Heap are both necessary utilizing and repairing the priority queue, and both of these
+functions have worked properly on all my tests.
+ */
 public class minHeap {
 
     public SLL[] A;
@@ -33,7 +46,7 @@ public class minHeap {
         return smallest;
     }
     public void Build_Min_Heap(){
-        //heap_size = A.length-1;
+        //heap_size = A.length-1;//SLIDE DIFFERENCE can reset heap
         //for(int i = (int)Math.floor((A.length-1)/2); i >= 2; i--){
         for(int i = heap_size; i > 0; i--){ // SLIDE DIFFERENCE trying heapsize because it will be run multiple times
             Min_Heapify(i);
@@ -73,8 +86,6 @@ public class minHeap {
                 Min_Heapify((i*2)+1);
             }
 
-//            swap(smallestPathSumVertex.key+1,A[i].key+1);//keys are graph locations. must be +1 for heap locations
-//            Min_Heapify(smallestPathSumVertex.key+1);
         }
 
     }
