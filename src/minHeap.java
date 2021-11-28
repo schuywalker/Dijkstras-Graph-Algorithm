@@ -40,10 +40,7 @@ public class minHeap {
         }
     }
     public void Min_Heapify(int i){
-
-
         if (i == 0) {return;} // we use 1 based indexing for heap, so index 0 is not used
-
         else if (i >= A.length) throw new IllegalArgumentException("i cannot be greater than array size");
 
         if (isLeafNode(i)){ return; }
@@ -58,7 +55,7 @@ public class minHeap {
         } else {
             smallestPathSumVertex = A[i];
         }
-        if (leftChild != null && A[i].shortestPathSum > leftChild.shortestPathSum){
+        if (leftChild != null && smallestPathSumVertex.shortestPathSum > leftChild.shortestPathSum){
             smallestPathSumVertex = leftChild; // if left child is smallest, move smallestNode pointer to left child
         }
 
@@ -67,8 +64,17 @@ public class minHeap {
 
         if (smallestPathSumVertex != A[i]) {
             // repair the damaged heap
-            swap(smallestPathSumVertex.key+1,A[i].key+1);//keys are graph locations. must be +1 for heap locations
-            Min_Heapify(smallestPathSumVertex.key);
+            if (smallestPathSumVertex == leftChild) {
+                swap(i,i*2);
+                Min_Heapify(i*2);
+            }
+            else if(smallestPathSumVertex == rightChild){
+                swap(i, (i*2)+1);
+                Min_Heapify((i*2)+1);
+            }
+
+//            swap(smallestPathSumVertex.key+1,A[i].key+1);//keys are graph locations. must be +1 for heap locations
+//            Min_Heapify(smallestPathSumVertex.key+1);
         }
 
     }
