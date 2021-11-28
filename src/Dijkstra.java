@@ -106,7 +106,7 @@ public class Dijkstra {
 
 
 
-        Dijkstra(graph, heap, graph.adjList[0]);
+        Dijkstra(graph, heap, graph.adjList[3]);
 //        System.out.println("\nFIRST PRINTING\n");
 //        heap.printHeap(graph);
 //        heap.A[1].shortestPathSum = 0;
@@ -147,8 +147,13 @@ public class Dijkstra {
                 int extractedVertexU_PathSum = u.shortestPathSum;
                 int weightFromUtoV = v_cursor.pathWeight;
                 int relaxed_edge = extractedVertexU_PathSum + weightFromUtoV;
+                if (relaxed_edge < 0) {
+                    relaxed_edge = extractedVertexU_PathSum; // max int + (num > 0) = a negative number.
+                    //this will mess up the comparison below, so if relaxed edge is inadvertantly made to be negative,
+                    //we reset it to be the extracted vertex's pathSum, which will make it max int.
+                }
 
-                if (nextHopNeighborPathSum > extractedVertexU_PathSum + weightFromUtoV) {
+                if (nextHopNeighborPathSum > relaxed_edge) {
                     //relax edge
 
                     graph.adjList[v_cursor.getSLL_Key()].shortestPathSum = relaxed_edge;
@@ -160,15 +165,13 @@ public class Dijkstra {
 
                     // set vertex with highlighted edge pointing to v to be u
                     graph.adjList[v_cursor.getSLL_Key()].p_previousHopInShortestPath = graph.adjList[u.key];
-                    //heap.A[v_cursor.getSLL_Key()+1].p_previousHopInShortestPath = u;
-                    System.out.println("ran successfully on "+v_cursor.getSLL_Key());
+
                 }
                 v_cursor = v_cursor.getNext();
             }
         }
         printDijkstra(graph,heap,source);
 
-        System.out.println("Success.");
     }
 
     public static void printDijkstra(Graph graph, minHeap heap, SLL source){
@@ -178,12 +181,12 @@ public class Dijkstra {
                 //do nothing
             }
             else if (graph.adjList[i].p_previousHopInShortestPath == null) {
-                System.out.print("["+i+"]"+"unreachable");
+                System.out.println("["+i+"]"+"unreachable");
             }
             else {
-                System.out.print("["+i+"]"+"shortest path:"+ graph.getShortestPath(i,source) + " shortestDistance:"+graph.adjList[i].shortestPathSum + "\n");
+                System.out.println("["+i+"]"+"shortest path:"+ graph.getShortestPath(i,source) + " shortest distance:"+graph.adjList[i].shortestPathSum);
             }
-            //System.out.println("\n");
+
         }
     }
 
