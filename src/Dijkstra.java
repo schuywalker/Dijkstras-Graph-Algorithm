@@ -155,7 +155,7 @@ public class Dijkstra {
                     //heap_u.shortestPathSum = relaxed_edge;
 
                     //repair minheap
-
+                    heap.Build_Min_Heap();
                     //heap.heapsort();
 
                     // set vertex with highlighted edge pointing to v to be u
